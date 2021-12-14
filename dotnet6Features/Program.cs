@@ -4,9 +4,18 @@
 
 // https://blog.okyrylchuk.dev/20-new-apis-in-net-6
 
-var helloWorldString = "Hello, World!";
+using Microsoft.Win32.SafeHandles;
+using System.Text;
 
-using SafeFileHandle handle = File.OpenHandle("file.txt", access: FileAccess.ReadWrite);
+var helloWorldString = "Hello, World! From txt file!";
+var path = "file.txt";
+
+if (!File.Exists(path))
+{
+    File.Create(path);
+}
+
+using SafeFileHandle handle = File.OpenHandle(path, access: FileAccess.ReadWrite);
 
 // Write to file
 byte[] strBytes = Encoding.UTF8.GetBytes(helloWorldString);
@@ -21,3 +30,19 @@ Memory<byte> buffer2 = new(new byte[length]);
 await RandomAccess.ReadAsync(handle, buffer2, 0);
 string content = Encoding.UTF8.GetString(buffer2.ToArray());
 Console.WriteLine(content); // Hello world
+
+
+PriorityQueue<string, int> priorityQueue = new();
+
+priorityQueue.Enqueue("Second", 2);
+priorityQueue.Enqueue("Fourth", 4);
+priorityQueue.Enqueue("Third 1", 3);
+priorityQueue.Enqueue("Third 2", 3);
+priorityQueue.Enqueue("First", 1);
+
+while (priorityQueue.Count > 0)
+{
+    string item = priorityQueue.Dequeue();
+    Console.WriteLine(item);
+}
+
