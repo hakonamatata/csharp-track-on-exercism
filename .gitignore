@@ -136,3 +136,5 @@ _NCrunch*
 */.vs
 /bin/
 /obj/
+
+.vscode/
